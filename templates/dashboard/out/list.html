@@ -1,0 +1,32 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Chiqimlar</h4>
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Mahsulot</th>
+              <th>Miqdori</th>
+              <th>Harakatlar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for q in queryset %}
+            <tr>
+              <td>{{q.product}}</td>
+              <td>{{q.quantity}}</td>
+              <td>
+                <a href="{% url 'dashboard:out_delete' q.code %}"><button class="btn btn-danger">O'chirish</button></a>
+              </td> 
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

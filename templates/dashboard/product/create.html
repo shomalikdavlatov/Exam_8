@@ -1,0 +1,46 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<form class="forms-sample" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleInputName1">Nomi</label>
+        <input name="name" type="text" class="form-control" id="exampleInputName1" placeholder="Nomni kiriting">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Kategoriya</label>
+        <select name="category_code" class="form-select" id="exampleFormControlSelect2">
+            {% for category in categories %}
+            <option value="{{category.code}}">{{category.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-gradient-primary text-white">Narxi </span>
+          </div>
+          <input name="price" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+          <div class="input-group-append">
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-gradient-primary text-white">Chegirma narxi </span>
+          </div>
+          <input name="discount_price" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+          <div class="input-group-append">
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+    </div>
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Upload Banner Image</label>
+      <input name="banner_image" class="form-control" type="file" id="formFile" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-success">Yaratish</button>
+</form>
+{% endblock content %}

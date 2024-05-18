@@ -1,0 +1,12 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<form class="forms-sample" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleInputName1">Nomi</label>
+        <input name="name" type="text" class="form-control" id="exampleInputName1" placeholder="Nomni kiriting">
+    </div>
+    <button type="submit" class="btn btn-success">Yaratish</button>
+</form>
+{% endblock content %}

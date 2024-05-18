@@ -1,0 +1,36 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="card">
+    <div class="card-body" style="display: block;">
+        <h4 class="card-title">Nomi</h4>
+        <h3>{{product.name}}</h3>
+    </div>
+    <div class="card-body" style="display: block;">
+        <h4 class="card-title">Kategoriya</h4>
+        <h3>{{product.category}}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Narxi</h4>
+        <h3>{{product.price}}</h3>
+    </div>
+{% if product.discount_price %}
+    <div class="card-body">
+        <h4 class="card-title">Chegirma narxi</h4>
+        <h3>{{product.discount_price}}</h3>
+    </div>
+{% endif %}
+    <div class="card-body">
+        <h4 class="card-title">Miqdori</h4>
+        <h3>{{product.quantity}}</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Rasmi</h4>
+        <img src="{{product.banner_image.url}}" style="width: 20rem; height: 20rem;"  alt="">
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">QR kod</h4>
+        <img src="{{product.qrcode_img.url}}" alt="">
+    </div>
+</div>
+{% endblock content %}

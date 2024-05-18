@@ -1,0 +1,28 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Kategoriyalar</h4>
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nomi</th>
+              <th>Harakatlar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in queryset %}
+            <tr>
+              <td>{{category.name}}</td>
+              <td><a href="{% url 'dashboard:category_delete' category.code %}"><button class="btn btn-danger">O'chirish</button></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

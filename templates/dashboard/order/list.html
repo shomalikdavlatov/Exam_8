@@ -1,0 +1,40 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Buyurtmalar</h4>
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nomi</th>
+              <th>Vaqti</th>
+              <th>Qaytarilganligi</th>
+              <th>Harakatlar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for q in queryset %}
+            <tr>
+              <td>{{q.name}}</td>
+              <td>{{q.date}}</td>
+              {% if q.is_returned %}
+              <td><button style="width: 10rem;" class="btn btn-success" disabled>Ha</button></td>
+              {% else %}
+              <td><button style="width: 10rem;" class="btn btn-danger" disabled>Yo'q</button></td>
+              {% endif %}
+              <td>
+                <a href="{% url 'dashboard:order_delete' q.code %}"><button class="btn btn-danger">O'chirish</button></a>
+                <a href="{% url 'dashboard:order_return' q.code %}"><button class="btn btn-warning">Qaytarish</button></a>
+                <a href="{% url 'dashboard:order_product_list' q.code %}"><button class="btn btn-info">Mahsulotlar</button></a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<form class="forms-sample" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Mahsulot</label>
+        <select name="product_code" class="form-select" id="exampleFormControlSelect2">
+            {% for product in products %}
+            <option value="{{product.code}}">{{product.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Buyurtma</label>
+        <select name="order_code" class="form-select" id="exampleFormControlSelect2">
+            {% for order in orders %}
+            <option value="{{order.code}}">{{order.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-gradient-primary text-white">Miqdor</span>
+          </div>
+          <input name="quantity" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Yaratish</button>
+</form>
+{% endblock content %}

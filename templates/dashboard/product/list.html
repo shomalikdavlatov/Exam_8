@@ -1,0 +1,45 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Mahsulotlar</h4>
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nomi</th>
+              <th>Kategoriyasi</th>
+              <th>Narxi</th>
+              <th>Chegirma narxi</th>
+              <th>Soni</th>
+              <th>Rasm</th>
+              <th>Harakatlar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in queryset %}
+            <tr>
+              <td>{{product.name}}</td>
+              <td>{{product.category}}</td>
+              <td>{{product.price}}</td>
+              {% if product.discount_price %}
+              <td>{{product.discount_price}}</td>
+              {% else %}
+              <td><button class="btn btn-danger" disabled></button></td>
+              {% endif %}
+              <td>{{product.quantity}}</td>
+              <td><img src="{{product.banner_image.url}}" style="width: 4rem; height: 4rem;"></td>
+              <td>
+                <a href="{% url 'dashboard:product_delete' product.code %}"><button class="btn btn-danger">O'chirish</button></a>
+                <a href="{% url 'dashboard:product_detail' product.code %}"><button class="btn btn-info">Ma'lumot</button></a>
+              </td> 
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
