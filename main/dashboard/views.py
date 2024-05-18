@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .. import models
 from datetime import datetime
-
+from itertools import chain
 
 
 def staff_required(func):
@@ -17,7 +17,35 @@ def staff_required(func):
 
 @staff_required 
 def index(request):
-    context = {}
+    products = models.Product.objects.all()
+    enters = models.Enter.objects.all()
+    outs = models.Out.objects.all()
+    total_enter = sum(enter.total for enter in enters)
+    total_out = sum(out.total for out in outs)
+    all = list(chain(enters, outs))
+    #
+    if request.method == 'GET':
+        product_code = request.GET.get('product_code')
+        filter_items = {}
+        for key, value in request.GET.items():
+            if key == 'product_code' and value == '0':
+                continue
+            if value:
+                if key == 'product_code':
+                    key = 'product__code'
+                    filter_items[key] = False
+                    continue
+                filter_items[key] = value
+        def filter_func(item):
+            for key, value in filter_items.items():
+                if key == 'product__code' and item.product.code != value:
+                    return False
+                # Add more filtering logic here if needed
+            return True
+    
+    all = list(filter(filter_func, all))
+    #
+    context = {'product_count':products.count(), 'all':all, 'queryset':products, 'total_enter':total_enter, 'total_out':total_out}
     return render(request, 'dashboard/index.html', context)
 
 # ---------- CATEGORY ----------

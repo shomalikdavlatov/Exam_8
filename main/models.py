@@ -109,6 +109,13 @@ class Enter(CodeGenerate):
 
     def __str__(self):
         return self.product.name
+    
+    @property
+    def total(self):
+        if self.product.discount_price:
+            return self.product.discount_price * self.quantity
+        else:
+            return self.product.price * self.quantity
 
     def save(self, *args, **kwargs):
         if self.pk:
@@ -126,6 +133,13 @@ class Out(CodeGenerate):
 
     def __str__(self):
         return self.product.name
+    
+    @property
+    def total(self):
+        if self.product.discount_price:
+            return self.product.discount_price * self.quantity
+        else:
+            return self.product.price * self.quantity
 
     def save(self, *args, **kwargs):
         if self.pk:
