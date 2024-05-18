@@ -24,26 +24,25 @@ def index(request):
     total_out = sum(out.total for out in outs)
     all = list(chain(enters, outs))
     #
-    if request.method == 'GET':
-        product_code = request.GET.get('product_code')
-        filter_items = {}
-        for key, value in request.GET.items():
-            if key == 'product_code' and value == '0':
-                continue
-            if value:
-                if key == 'product_code':
-                    key = 'product__code'
-                    filter_items[key] = False
-                    continue
-                filter_items[key] = value
-        def filter_func(item):
-            for key, value in filter_items.items():
-                if key == 'product__code' and item.product.code != value:
-                    return False
-                # Add more filtering logic here if needed
-            return True
+    # if request.method == 'GET':
+    #     product_code = request.GET.get('product_code')
+    #     filter_items = {}
+    #     for key, value in request.GET.items():
+    #         if key == 'product_code' and value == '0':
+    #             continue
+    #         if value:
+    #             if key == 'product_code':
+    #                 key = 'product__code'
+    #                 filter_items[key] = False
+    #                 continue
+    #             filter_items[key] = value
+    #     def filter_func(item):
+    #         for key, value in filter_items.items():
+    #             if key == 'product__code' and item.product.code != value:
+    #                 return False
+    #         return True
     
-    all = list(filter(filter_func, all))
+    # all = list(filter(filter_func, all))
     #
     context = {'product_count':products.count(), 'all':all, 'queryset':products, 'total_enter':total_enter, 'total_out':total_out}
     return render(request, 'dashboard/index.html', context)
