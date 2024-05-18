@@ -9,7 +9,7 @@ def staff_required(func):
         if request.user.is_authenticated and request.user.is_staff:
             result = func(request, *args, **kwargs)
         else:
-            return redirect('front:index')
+            return redirect('auth:login')
         return result
     return wrapper
 
